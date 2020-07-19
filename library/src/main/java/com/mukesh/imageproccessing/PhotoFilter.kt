@@ -68,6 +68,8 @@ class PhotoFilter(
     initialized = false
     currentEffect = effect
     effectsView.requestRender()
+    effectsView.onPause()
+    effectsView.onResume()
   }
 
   override fun onSurfaceCreated(
