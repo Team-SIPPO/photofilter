@@ -7,6 +7,7 @@ import android.media.effect.EffectFactory
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.GLUtils
+import android.util.Log
 import com.mukesh.imageproccessing.filters.AutoFix
 import com.mukesh.imageproccessing.filters.Highlight
 import com.mukesh.imageproccessing.filters.Brightness
@@ -32,6 +33,7 @@ import com.mukesh.imageproccessing.filters.Sharpen
 import com.mukesh.imageproccessing.filters.Temperature
 import com.mukesh.imageproccessing.filters.Tint
 import com.mukesh.imageproccessing.filters.Vignette
+import java.lang.Exception
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import javax.microedition.khronos.egl.EGL10
@@ -93,12 +95,17 @@ class PhotoFilter(
       loadTextures()
       initialized = true
     }
-    if (currentEffect !is None) {
-      initEffect()
-      applyEffect()
+    try {
+      if (currentEffect !is None) {
+        initEffect()
+        applyEffect()
+      }
+      renderResult()
+    } catch (e: Exception){
+      Log.d("photofilter", "error")
     }
-    renderResult()
-  }
+
+}
 
   private fun loadTextures() {
     if (bitmap != null) {
